@@ -6,6 +6,7 @@ import (
 
 func NewProvider() *tffunc.Provider {
 	p := tffunc.NewProvider()
+	p.AddFunction("evalconfig", evalconfigFunc)
 	p.AddFunction("evalconfigattrs", evalconfigattrsFunc)
 	p.AddFunction("evalexpr", evalexprFunc)
 	p.AddFunction("evaltemplate", evaltemplateFunc)
