@@ -7,6 +7,8 @@ import (
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
+
+	"github.com/apparentlymart/terraform-provider-hcl/internal/evalfuncs"
 )
 
 var evalconfigattrsFunc = &function.Spec{
@@ -52,7 +54,7 @@ var evalconfigattrsFunc = &function.Spec{
 			attr := attrs[name]
 			v, diags := attr.Expr.Value(&hcl.EvalContext{
 				Variables: vars,
-				Functions: evalScopeFuncs,
+				Functions: evalfuncs.Functions(),
 			})
 			if diags.HasErrors() {
 				return cty.DynamicVal, function.NewArgErrorf(0, "evaluation failed for %q: %s", name, diags.Error())

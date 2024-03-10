@@ -6,7 +6,8 @@ import (
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
 	"github.com/zclconf/go-cty/cty/function"
-	"github.com/zclconf/go-cty/cty/function/stdlib"
+
+	"github.com/apparentlymart/terraform-provider-hcl/internal/evalfuncs"
 )
 
 var evalexprFunc = parseAndEvalFunctionSpec(
@@ -53,7 +54,7 @@ func parseAndEvalFunctionSpec(desc, srcDesc string, parse func([]byte, string, h
 
 			result, diags := expr.Value(&hcl.EvalContext{
 				Variables: vars,
-				Functions: evalScopeFuncs,
+				Functions: evalfuncs.Functions(),
 			})
 			if diags.HasErrors() {
 				return cty.DynamicVal, function.NewArgErrorf(0, "evaluation failed: %s", diags.Error())
@@ -73,22 +74,4 @@ func parseAndEvalFunctionSpec(desc, srcDesc string, parse func([]byte, string, h
 		}
 	}
 	return ret
-}
-
-var evalScopeFuncs = map[string]function.Function{
-	"abs":        stdlib.AbsoluteFunc,
-	"coalesce":   stdlib.CoalesceFunc,
-	"concat":     stdlib.ConcatFunc,
-	"hasindex":   stdlib.HasIndexFunc,
-	"int":        stdlib.IntFunc,
-	"jsondecode": stdlib.JSONDecodeFunc,
-	"jsonencode": stdlib.JSONEncodeFunc,
-	"length":     stdlib.LengthFunc,
-	"lower":      stdlib.LowerFunc,
-	"max":        stdlib.MaxFunc,
-	"min":        stdlib.MinFunc,
-	"reverse":    stdlib.ReverseFunc,
-	"strlen":     stdlib.StrlenFunc,
-	"substr":     stdlib.SubstrFunc,
-	"upper":      stdlib.UpperFunc,
 }

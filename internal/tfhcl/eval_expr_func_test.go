@@ -24,6 +24,10 @@ func TestEvalexpr(t *testing.T) {
 			Want: cty.StringVal("hello"),
 		},
 		{
+			Expr: `upper("hello")`,
+			Want: cty.StringVal("HELLO"),
+		},
+		{
 			Expr: `foo`,
 			Vars: map[string]cty.Value{
 				"foo": cty.StringVal("hello"),
@@ -87,6 +91,10 @@ func TestEvaltemplate(t *testing.T) {
 		{
 			Template: `${"hello"}`,
 			Want:     cty.StringVal("hello"),
+		},
+		{
+			Template: `${upper("hello")}`,
+			Want:     cty.StringVal("HELLO"),
 		},
 		{
 			Template: `${foo}`,
