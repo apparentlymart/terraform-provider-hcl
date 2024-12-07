@@ -19,7 +19,7 @@ require (
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	go.rpcplugin.org/rpcplugin v0.3.0 // indirect
+	go.rpcplugin.org/rpcplugin v0.3.1 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/net v0.20.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect
